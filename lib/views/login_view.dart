@@ -1,5 +1,6 @@
 import 'package:chat_app/constant.dart';
 import 'package:chat_app/helper/snack_bar_message.dart';
+import 'package:chat_app/services/auth_services.dart';
 import 'package:chat_app/views/chat_view.dart';
 import 'package:chat_app/views/register_view.dart';
 import 'package:chat_app/widgets/custom_button.dart';
@@ -27,6 +28,7 @@ class _LoginViewState extends State<LoginView> {
       inAsyncCall: isLoad,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           toolbarHeight: 150,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
@@ -107,9 +109,9 @@ class _LoginViewState extends State<LoginView> {
                           email: email!,
                           password: password!,
                         );
-                        Navigator.pushNamed(context, ChatView.id);
+                        Navigator.pushNamed(context, ChatView.id,
+                            arguments: email);
                       } on FirebaseAuthException catch (e) {
-                        print(e.code);
                         if (e.code == 'user-not-found') {
                           SnackBarMessage(
                               context, "user-not-found", Colors.red);
@@ -160,6 +162,26 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     )
                   ],
+                ),
+                const SizedBox(height: 10),
+                const Divider(
+                  height: 50,
+                  color: Color.fromARGB(60, 0, 0, 0),
+                  thickness: 3,
+                  endIndent: 30,
+                  indent: 30,
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  style: const ButtonStyle(
+                      shape: MaterialStatePropertyAll(CircleBorder()),
+                      backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                  onPressed: () async {
+                    Auth().logInWithGoogle();
+                  },
+                  child: const Image(
+                    image: AssetImage("assets/icons8-google-48.png"),
+                  ),
                 )
               ],
             ),

@@ -1,7 +1,7 @@
 import 'package:chat_app/constant.dart';
 import 'package:chat_app/models/message_model.dart';
 import 'package:chat_app/widgets/chat_bubble.dart';
-import 'package:chat_app/widgets/text_form.dart';
+import 'package:chat_app/widgets/chat_bubble_friend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +20,7 @@ class _ChatBubbleState extends State<ChatView> {
   final constrain = ScrollController();
   @override
   Widget build(BuildContext context) {
+    var email = ModalRoute.of(context)!.settings.arguments;
     return StreamBuilder(
       stream: message.orderBy("date", descending: true).snapshots(),
       builder: (context, snapshot) {
@@ -63,9 +64,9 @@ class _ChatBubbleState extends State<ChatView> {
                       reverse: true,
                       itemCount: messageList.length,
                       itemBuilder: (context, index) {
-                        return ChatBubble(
-                          message: messageList[index],
-                        );
+                        return messageList[index].id == email
+                            ? ChatBubble(message: messageList[index])
+                            : ChatBubbleFriend(message: messageList[index]);
                       },
                     ),
                   ),
@@ -75,15 +76,16 @@ class _ChatBubbleState extends State<ChatView> {
                       message.add({
                         "message": value,
                         "date": DateTime.now(),
+                        "id": email,
                       });
                       controller.clear();
                       constrain.animateTo(
                         0,
-                        duration: Duration(milliseconds: 1000),
+                        duration: const Duration(milliseconds: 1000),
                         curve: Curves.fastOutSlowIn,
                       );
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       suffixIcon: Icon(Icons.send),
                       hintText: "Send Message",
                       border: OutlineInputBorder(borderSide: BorderSide()),
@@ -92,7 +94,7 @@ class _ChatBubbleState extends State<ChatView> {
                 ],
               ));
         } else {
-          return CircularProgressIndicator();
+          return Center(child: const CircularProgressIndicator());
         }
       },
     );

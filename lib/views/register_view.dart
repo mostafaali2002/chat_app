@@ -140,8 +140,26 @@ class _RegisterViewState extends State<RegisterView> {
                         "Login",
                         style: TextStyle(fontSize: 17),
                       ),
-                    )
+                    ),
                   ],
+                ),
+                const SizedBox(height: 10),
+                const Divider(
+                  height: 50,
+                  color: Color.fromARGB(60, 0, 0, 0),
+                  thickness: 3,
+                  endIndent: 30,
+                  indent: 30,
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  style: const ButtonStyle(
+                      shape: MaterialStatePropertyAll(CircleBorder()),
+                      backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                  onPressed: () {},
+                  child: const Image(
+                    image: AssetImage("assets/icons8-google-48.png"),
+                  ),
                 )
               ],
             ),

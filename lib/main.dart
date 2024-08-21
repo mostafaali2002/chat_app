@@ -2,6 +2,7 @@ import 'package:chat_app/firebase_options.dart';
 import 'package:chat_app/views/chat_view.dart';
 import 'package:chat_app/views/login_view.dart';
 import 'package:chat_app/views/register_view.dart';
+import 'package:chat_app/views/splash_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +23,12 @@ class Chat_App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        LoginView.id: (context) => LoginView(),
-        RegisterView.id: (context) => RegisterView(),
-        ChatView.id: (context) => ChatView()
+        LoginView.id: (context) => const LoginView(),
+        RegisterView.id: (context) => const RegisterView(),
+        ChatView.id: (context) => const ChatView(),
+        SplashView.id: (context) => const SplashView()
       },
-      initialRoute: LoginView.id,
+      initialRoute: SplashView.id,
     );
   }
 }
