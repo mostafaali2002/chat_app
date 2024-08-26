@@ -90,22 +90,23 @@ class _ChatBubbleState extends State<ChatView> {
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
                           onPressed: () {
-                            message.add({
-                              "message": send,
-                              "date": DateTime.now(),
-                              "id": email,
-                            });
-                            controller.clear();
+                            // message.add({
+                            //   "message": send,
+                            //   "date": DateTime.now(),
+                            //   "id": email,
+                            // });
+                            // controller.clear();
                           },
-                          icon: Icon(Icons.send)),
+                          icon: const Icon(Icons.send)),
                       hintText: "Send Message",
-                      border: OutlineInputBorder(borderSide: BorderSide()),
+                      border:
+                          const OutlineInputBorder(borderSide: BorderSide()),
                     ),
                   )
                 ],
               ));
         } else {
-          return Center(child: const CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );
