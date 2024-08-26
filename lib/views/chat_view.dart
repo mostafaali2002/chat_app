@@ -18,6 +18,7 @@ class _ChatBubbleState extends State<ChatView> {
       FirebaseFirestore.instance.collection("message");
   TextEditingController controller = TextEditingController();
   final constrain = ScrollController();
+  String send = "";
   @override
   Widget build(BuildContext context) {
     var email = ModalRoute.of(context)!.settings.arguments;
@@ -73,6 +74,7 @@ class _ChatBubbleState extends State<ChatView> {
                   TextField(
                     controller: controller,
                     onSubmitted: (value) {
+                      send = value;
                       message.add({
                         "message": value,
                         "date": DateTime.now(),
@@ -85,8 +87,17 @@ class _ChatBubbleState extends State<ChatView> {
                         curve: Curves.fastOutSlowIn,
                       );
                     },
-                    decoration: const InputDecoration(
-                      suffixIcon: Icon(Icons.send),
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            message.add({
+                              "message": send,
+                              "date": DateTime.now(),
+                              "id": email,
+                            });
+                            controller.clear();
+                          },
+                          icon: Icon(Icons.send)),
                       hintText: "Send Message",
                       border: OutlineInputBorder(borderSide: BorderSide()),
                     ),

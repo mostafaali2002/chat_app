@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:chat_app/constant.dart';
 import 'package:chat_app/views/login_view.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +8,7 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(milliseconds: 1000), () {
+    Timer(const Duration(milliseconds: 1000), () {
       Navigator.pushNamed(context, LoginView.id);
     });
 

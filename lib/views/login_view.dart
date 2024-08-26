@@ -177,7 +177,8 @@ class _LoginViewState extends State<LoginView> {
                       shape: MaterialStatePropertyAll(CircleBorder()),
                       backgroundColor: MaterialStatePropertyAll(Colors.white)),
                   onPressed: () async {
-                    Auth().logInWithGoogle();
+                    await Auth().logInWithGoogle();
+                    Navigator.pushNamed(context, ChatView.id);
                   },
                   child: const Image(
                     image: AssetImage("assets/icons8-google-48.png"),

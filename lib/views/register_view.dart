@@ -1,5 +1,6 @@
 import 'package:chat_app/constant.dart';
 import 'package:chat_app/helper/snack_bar_message.dart';
+import 'package:chat_app/services/auth_services.dart';
 import 'package:chat_app/views/chat_view.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/text_form.dart';
@@ -156,7 +157,10 @@ class _RegisterViewState extends State<RegisterView> {
                   style: const ButtonStyle(
                       shape: MaterialStatePropertyAll(CircleBorder()),
                       backgroundColor: MaterialStatePropertyAll(Colors.white)),
-                  onPressed: () {},
+                  onPressed: () async {
+                    await Auth().logInWithGoogle();
+                    Navigator.pushNamed(context, ChatView.id);
+                  },
                   child: const Image(
                     image: AssetImage("assets/icons8-google-48.png"),
                   ),
